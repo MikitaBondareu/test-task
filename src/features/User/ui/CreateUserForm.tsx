@@ -3,15 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import {
-  LABELS_CONSTANTS,
-  PLACEHOLDER_TEXTS,
-} from '@/src/shared/lib/constants/textConstants';
-
-import CustomInput from '../../../shared/ui/CustomInput/CustomInput';
 import type { CreateUserFormType } from '../CreateUserForm/schema/schema';
 import { createUserSchema } from '../CreateUserForm/schema/schema';
 import { CREATE_USER_KEYS } from '../model/constants';
+import CreateUserCardForm from './CreateUserCardForm';
 
 const CreateUserForm = () => {
   const defaultValues = useMemo(
@@ -29,48 +24,28 @@ const CreateUserForm = () => {
     defaultValues,
   });
 
-  const mockInputs = [
-    {
-      label: LABELS_CONSTANTS.EMAIL,
-      placeholder: PLACEHOLDER_TEXTS.EMAIL,
-      name: CREATE_USER_KEYS.EMAIL,
-      inputHint: 'we will use it for notification',
-      type: 'email',
-    },
-    {
-      label: LABELS_CONSTANTS.FIRST_NAME,
-      placeholder: PLACEHOLDER_TEXTS.FIRST_NAME,
-      name: CREATE_USER_KEYS.FIRST_NAME,
-      inputHint: 'real name',
-    },
-    {
-      label: LABELS_CONSTANTS.LAST_NAME,
-      placeholder: PLACEHOLDER_TEXTS.LAST_NAME,
-      name: CREATE_USER_KEYS.LAST_NAME,
-      inputHint: 'real surname',
-    },
-    {
-      label: LABELS_CONSTANTS.PHONE,
-      placeholder: PLACEHOLDER_TEXTS.PHONE,
-      name: CREATE_USER_KEYS.PHONE,
-      inputHint: 'needed for registration only',
-      type: 'tel',
-    },
-  ];
+  const isErrorExist = !!Object.keys(methods.formState.errors).length;
+
+  const handleValidate = (fields: (keyof CreateUserFormType)[]) => {
+    return methods.trigger(fields);
+  };
+
+  const handleInvalidate = (fields: (keyof CreateUserFormType)[]) => {
+    return methods.clearErrors(fields);
+  };
+
+  const handleSubmitForm = (userData: CreateUserFormType) => {
+    alert(userData);
+  };
 
   return (
     <FormProvider {...methods}>
-      <form>
-        {mockInputs.map((item, index) => (
-          <CustomInput
-            key={index}
-            label={item.label}
-            placeholder={item.placeholder}
-            name={item.name}
-            inputHint={item.inputHint}
-            type={item.type ? item.type : 'text'}
-          />
-        ))}
+      <form onSubmit={methods.handleSubmit(handleSubmitForm)}>
+        <CreateUserCardForm
+          validate={handleValidate}
+          invalidate={handleInvalidate}
+          isErrorExist={isErrorExist}
+        />
       </form>
     </FormProvider>
   );

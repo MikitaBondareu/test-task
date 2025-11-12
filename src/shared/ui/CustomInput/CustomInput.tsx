@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@radix-ui/react-tooltip';
+import { TooltipTrigger } from '@radix-ui/react-tooltip';
 import { InfoIcon } from 'lucide-react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -16,6 +11,7 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from '@/components/ui/input-group';
+import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
 
 type CustomInputProps = {
   name: string;
@@ -36,6 +32,9 @@ const CustomInput = ({
     control,
     formState: { errors },
   } = useFormContext(); // Получаем контекст из FormProvider
+
+  const errorMessage = errors[name]?.message as string | undefined;
+
   return (
     <>
       <Controller
@@ -49,28 +48,26 @@ const CustomInput = ({
             {/* Лейбл для инпута */}
             <InputGroupAddon align="inline-end">
               {/* Подсказка всплывающая */}
-              <TooltipProvider>
-                <Tooltip delayDuration={100}>
-                  <TooltipTrigger asChild>
-                    <InputGroupButton
-                      variant="ghost"
-                      aria-label="Info"
-                      size="icon-xs"
-                    >
-                      <InfoIcon />
-                    </InputGroupButton>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {/* Текст подсказки */}
-                    {inputHint}
-                  </TooltipContent>
-                </Tooltip>
-              </TooltipProvider>
+              <Tooltip delayDuration={100}>
+                <TooltipTrigger asChild>
+                  <InputGroupButton
+                    variant="ghost"
+                    aria-label="Info"
+                    size="icon-xs"
+                  >
+                    <InfoIcon />
+                  </InputGroupButton>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {/* Текст подсказки */}
+                  {inputHint}
+                </TooltipContent>
+              </Tooltip>
             </InputGroupAddon>
           </InputGroup>
         )}
       />
-      {errors[name] && <span>{errors[name].message as string}</span>}
+      {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
       {/* Вывод ошибки */}
     </>
   );

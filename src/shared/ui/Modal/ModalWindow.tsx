@@ -19,7 +19,12 @@ type ModalWindowTypes = {
   footerContent?: React.ReactNode;
 };
 
-const ModalWindow = ({
+type ModalCompound = React.FC<ModalWindowTypes> & {
+  Trigger: typeof DialogTrigger;
+  Header: typeof DialogHeader;
+};
+
+const ModalWindow: ModalCompound = ({
   children,
   title,
   button,
@@ -29,7 +34,6 @@ const ModalWindow = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      {/* Compound Component */}
       <ModalWindow.Trigger>
         {button ?? <Button>Open</Button>}
       </ModalWindow.Trigger>
