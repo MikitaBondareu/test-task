@@ -1,6 +1,5 @@
 'use client';
 
-import { TooltipTrigger } from '@radix-ui/react-tooltip';
 import { InfoIcon } from 'lucide-react';
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -10,8 +9,12 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from '@/components/ui/input-group';
-import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
+} from '../../components/ui/input-group';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '../../components/ui/tooltip';
 
 type CustomInputProps = {
   name: string;
@@ -31,7 +34,7 @@ const CustomInput = ({
   const {
     control,
     formState: { errors },
-  } = useFormContext(); // Получаем контекст из FormProvider
+  } = useFormContext();
 
   const errorMessage = errors[name]?.message as string | undefined;
 
@@ -42,12 +45,15 @@ const CustomInput = ({
         control={control}
         render={({ field }) => (
           <InputGroup>
-            <InputGroupInput {...field} placeholder={placeholder} type={type} />
-            {/* Сам инпут */}
+            <InputGroupInput
+              {...field}
+              placeholder={placeholder}
+              type={type}
+              aria-invalid={!!errorMessage}
+              aria-describedby={errorMessage ? `${name}-error` : undefined}
+            />
             <InputGroupAddon>{label}</InputGroupAddon>
-            {/* Лейбл для инпута */}
             <InputGroupAddon align="inline-end">
-              {/* Подсказка всплывающая */}
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
                   <InputGroupButton
@@ -58,17 +64,13 @@ const CustomInput = ({
                     <InfoIcon />
                   </InputGroupButton>
                 </TooltipTrigger>
-                <TooltipContent>
-                  {/* Текст подсказки */}
-                  {inputHint}
-                </TooltipContent>
+                <TooltipContent>{inputHint}</TooltipContent>
               </Tooltip>
             </InputGroupAddon>
           </InputGroup>
         )}
       />
       {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
-      {/* Вывод ошибки */}
     </>
   );
 };

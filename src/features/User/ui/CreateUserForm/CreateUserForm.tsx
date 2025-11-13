@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import type { CreateUserFormType } from '../CreateUserForm/schema/schema';
-import { createUserSchema } from '../CreateUserForm/schema/schema';
-import { CREATE_USER_KEYS } from '../model/constants';
-import CreateUserCardForm from './CreateUserCardForm';
+import { CREATE_USER_KEYS } from '../../model/constants';
+import CreateUserCardForm from '../CreateUserCardForm/CreateUserCardForm';
+import type { CreateUserFormType } from './schema/schema';
+import { createUserSchema } from './schema/schema';
 
 const CreateUserForm = () => {
   const defaultValues = useMemo(
@@ -15,6 +15,7 @@ const CreateUserForm = () => {
       [CREATE_USER_KEYS.FIRST_NAME]: '',
       [CREATE_USER_KEYS.LAST_NAME]: '',
       [CREATE_USER_KEYS.PHONE]: '',
+      [CREATE_USER_KEYS.COUNTRY]: '',
     }),
     []
   );
@@ -22,6 +23,7 @@ const CreateUserForm = () => {
     mode: 'all',
     resolver: zodResolver(createUserSchema),
     defaultValues,
+    shouldUnregister: false,
   });
 
   const isErrorExist = !!Object.keys(methods.formState.errors).length;
@@ -35,9 +37,9 @@ const CreateUserForm = () => {
   };
 
   const handleSubmitForm = (userData: CreateUserFormType) => {
-    alert(userData);
+    // Описанный хук из RTK Query
+    alert(JSON.stringify(userData));
   };
-
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmitForm)}>

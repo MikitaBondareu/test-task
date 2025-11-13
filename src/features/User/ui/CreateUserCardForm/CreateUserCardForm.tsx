@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-import { Button } from '@/components/ui/button';
 import { mockInputs } from '@/src/mocks/mockInputs';
+import { Button } from '@/src/shared/components/ui/button';
 import {
   STEPS,
   useMultiStepForm,
@@ -32,7 +32,7 @@ const CreateUserCardForm = ({
     <>
       {mockInputs[step].map((item, index) => (
         <CustomInput
-          key={index}
+          key={`${item.name}_${index}`}
           label={item.label}
           placeholder={item.placeholder}
           name={item.name}
@@ -41,12 +41,18 @@ const CreateUserCardForm = ({
         />
       ))}
       {step === STEPS.ACCOUNT_INFO && (
-        <Button onClick={handleNextStep}>Next</Button>
+        <Button onClick={handleNextStep} disabled={isErrorExist}>
+          Next
+        </Button>
       )}
       {step !== STEPS.ACCOUNT_INFO && (
         <Button onClick={handlePrewStep}>Back</Button>
       )}
-      {step === STEPS.END && <Button type="submit">Create</Button>}
+      {step === STEPS.END && (
+        <Button type="submit" disabled={isErrorExist}>
+          Create
+        </Button>
+      )}
     </>
   );
 };

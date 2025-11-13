@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 
-import type { CreateUserFormType } from '@/src/features/User/CreateUserForm/schema/schema';
 import { CREATE_USER_KEYS } from '@/src/features/User/model/constants';
+import type { CreateUserFormType } from '@/src/features/User/ui/CreateUserForm/schema/schema';
 
 export enum STEPS {
   ACCOUNT_INFO,
@@ -25,12 +25,7 @@ export const useMultiStepForm = (
         CREATE_USER_KEYS.EMAIL,
         CREATE_USER_KEYS.PHONE,
       ] as (keyof CreateUserFormType)[],
-      [
-        CREATE_USER_KEYS.FIRST_NAME,
-        CREATE_USER_KEYS.LAST_NAME,
-        CREATE_USER_KEYS.EMAIL,
-        CREATE_USER_KEYS.PHONE,
-      ] as (keyof CreateUserFormType)[],
+      [CREATE_USER_KEYS.COUNTRY] as (keyof CreateUserFormType)[],
     ],
     []
   );

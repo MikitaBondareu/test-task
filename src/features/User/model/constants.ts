@@ -3,4 +3,5 @@ export const CREATE_USER_KEYS: Record<string, string> = {
   LAST_NAME: 'lastName',
   EMAIL: 'email',
   PHONE: 'phoneNumber',
+  COUNTRY: 'country',
 };

@@ -3,6 +3,7 @@ export const LABELS_CONSTANTS = {
   PHONE: 'Phone Number',
   FIRST_NAME: 'First Name',
   LAST_NAME: 'Last Name',
+  COUNTRY: 'Country',
 };
 
 export const PLACEHOLDER_TEXTS = {
@@ -10,4 +11,5 @@ export const PLACEHOLDER_TEXTS = {
   PHONE: 'Type in your Phone Number',
   FIRST_NAME: 'Type in your First Name',
   LAST_NAME: 'Type in your Last Name',
+  COUNTRY: 'Type in Country of living',
 };
