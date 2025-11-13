@@ -14,7 +14,7 @@ const CreateUserForm = () => {
       [CREATE_USER_KEYS.EMAIL]: '',
       [CREATE_USER_KEYS.FIRST_NAME]: '',
       [CREATE_USER_KEYS.LAST_NAME]: '',
-      [CREATE_USER_KEYS.PHONE]: '',
+      [CREATE_USER_KEYS.PHONE]: '+375',
       [CREATE_USER_KEYS.COUNTRY]: '',
     }),
     []

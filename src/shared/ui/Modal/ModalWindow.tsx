@@ -58,7 +58,7 @@ const ModalWindow: ModalCompound = ({
         onOpenChange?.(modalState);
       }}
     >
-      <ModalWindow.Trigger>
+      <ModalWindow.Trigger asChild>
         {button ?? <Button>Open</Button>}
       </ModalWindow.Trigger>
       <DialogContent>

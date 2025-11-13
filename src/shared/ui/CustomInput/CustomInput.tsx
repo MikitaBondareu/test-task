@@ -16,7 +16,7 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 
-type CustomInputProps = {
+export type CustomInputProps = {
   name: string;
   label: string;
   type?: string;
@@ -24,7 +24,7 @@ type CustomInputProps = {
   inputHint: string;
 };
 
-const CustomInput = ({
+export const CustomInput = ({
   name,
   label,
   type = 'text',
@@ -74,4 +74,3 @@ const CustomInput = ({
     </>
   );
 };
-export default CustomInput;
